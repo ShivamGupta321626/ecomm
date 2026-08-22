@@ -42,15 +42,15 @@ export default function App() {
   ];
 
   const products = [
-    { id: 1, name: "Durable Broom and Mop Set Sbonet", rating: "★★★★★", priceText: "₹299", priceVal: 299, category: "Household & Cleaning" },
-    { id: 2, name: "Advanced Floor Cleaner Liquid (5L)", rating: "★★★★☆", priceText: "₹399", priceVal: 399, category: "Household & Cleaning" },
-    { id: 3, name: "Heavy Duty Dishwashing Liquid & Scrub", rating: "★★★★★", priceText: "₹149", priceVal: 149, category: "Household & Cleaning" },
-    { id: 4, name: "Plastic Dustbin with Paddle Mechanism", rating: "★★★★☆", priceText: "₹349", priceVal: 349, category: "Household & Cleaning" },
-    { id: 5, name: "Fountain Pen for Fine Detailed", rating: "★★★★☆", priceText: "₹299", priceVal: 299, category: "Stationery & Files" },
-    { id: 6, name: "High-Quality Notebooks (Pack of 4)", rating: "★★★★★", priceText: "₹299", priceVal: 299, category: "Stationery & Files" },
-    { id: 7, name: "Ring Binders or Ring Binders Board", rating: "★★★★☆", priceText: "₹299", priceVal: 299, category: "Stationery & Files" },
-    { id: 8, name: "Industrial Safety Helmet & Gloves", rating: "★★★★☆", priceText: "₹299", priceVal: 299, category: "Industrial Safety" },
-    { id: 9, name: "A4 Xerox Paper Rim (75 GSM)", rating: "★★★★★", priceText: "₹350", priceVal: 350, category: "Xerox & Print" },
+    { id: 1, name: "Durable Broom and Mop Set Sbonet", rating: "★★★★★", reviews: "(128)", priceText: "₹299", originalPrice: "₹333", priceVal: 299, discount: "10% OFF", category: "Household & Cleaning" },
+    { id: 2, name: "Advanced Floor Cleaner Liquid (5L)", rating: "★★★★☆", reviews: "(96)", priceText: "₹399", originalPrice: "₹470", priceVal: 399, discount: "15% OFF", category: "Household & Cleaning" },
+    { id: 3, name: "Heavy Duty Dishwashing Liquid & Scrub", rating: "★★★★★", reviews: "(76)", priceText: "₹149", originalPrice: "₹169", priceVal: 149, discount: "12% OFF", category: "Household & Cleaning" },
+    { id: 4, name: "Plastic Dustbin with Paddle Mechanism", rating: "★★★★☆", reviews: "(54)", priceText: "₹349", originalPrice: "₹379", priceVal: 349, discount: "8% OFF", category: "Household & Cleaning" },
+    { id: 5, name: "Fountain Pen for Fine Detailed", rating: "★★★★☆", reviews: "(42)", priceText: "₹299", originalPrice: "₹349", priceVal: 299, discount: "14% OFF", category: "Stationery & Files" },
+    { id: 6, name: "High-Quality Notebooks (Pack of 4)", rating: "★★★★★", reviews: "(112)", priceText: "₹299", originalPrice: "₹350", priceVal: 299, discount: "15% OFF", category: "Stationery & Files" },
+    { id: 7, name: "Ring Binders or Ring Binders Board", rating: "★★★★☆", reviews: "(38)", priceText: "₹299", originalPrice: "₹340", priceVal: 299, discount: "12% OFF", category: "Stationery & Files" },
+    { id: 8, name: "Industrial Safety Helmet & Gloves", rating: "★★★★☆", reviews: "(65)", priceText: "₹299", originalPrice: "₹399", priceVal: 299, discount: "25% OFF", category: "Industrial Safety" },
+    { id: 9, name: "A4 Xerox Paper Rim (75 GSM)", rating: "★★★★★", reviews: "(210)", priceText: "₹350", originalPrice: "₹400", priceVal: 350, discount: "12% OFF", category: "Xerox & Print" },
   ];
 
   const filteredProducts = products.filter(product => {
@@ -182,91 +182,68 @@ export default function App() {
         .professional-bg {
           background-color: #f8fafc;
           background-image: 
-            radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.08) 0px, transparent 50%),
-            radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.08) 0px, transparent 50%),
-            radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.06) 0px, transparent 50%),
-            radial-gradient(at 0% 100%, rgba(16, 185, 129, 0.06) 0px, transparent 50%);
+            radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.06) 0px, transparent 50%),
+            radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.06) 0px, transparent 50%);
           background-size: 200% 200%;
           animation: meshMove 15s ease infinite;
         }
 
         .glass-card {
-          background: rgba(255, 255, 255, 0.85);
+          background: rgba(255, 255, 255, 0.9);
           backdrop-filter: blur(12px);
           -webkit-backdrop-filter: blur(12px);
           border: 1px solid rgba(226, 232, 240, 0.8);
         }
 
         @keyframes slideFromTop {
-          from { opacity: 0; transform: translateY(-40px); }
+          from { opacity: 0; transform: translateY(-30px); }
           to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes slideFromLeft {
-          from { opacity: 0; transform: translateX(-50px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes slideFromRight {
-          from { opacity: 0; transform: translateX(50px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes slideFromBottom {
-          from { opacity: 0; transform: translateY(50px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-
-        .anim-top { animation: slideFromTop 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .anim-left { animation: slideFromLeft 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .anim-right { animation: slideFromRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .anim-bottom { animation: slideFromBottom 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .anim-top { animation: slideFromTop 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
         .card-hover:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 10px 10px -5px rgba(15, 23, 42, 0.04);
-          border-color: #cbd5e1;
+          transform: translateY(-4px);
+          box-shadow: 0 16px 24px -4px rgba(15, 23, 42, 0.08);
+          border-color: #93c5fd;
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
       `}</style>
 
       <div className="professional-bg" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', width: '100%' }}>
         
-        <div className="anim-top" style={{ backgroundColor: '#0f172a', color: '#f8fafc', textAlign: 'center', padding: '10px', fontSize: '13px', fontWeight: '500', letterSpacing: '0.5px' }}>
-          ✨ Special Offer: Get Free Delivery on Orders Above ₹600 + Extra 10% Off on Bulk Orders!
+        {/* Top Announcement Bar */}
+        <div style={{ backgroundColor: '#1d4ed8', color: '#ffffff', textAlign: 'center', padding: '9px', fontSize: '13px', fontWeight: '600', letterSpacing: '0.3px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}>
+          <span>✨</span> Special Offer: Get Free Delivery on Orders Above ₹600 + Extra 10% Off on Bulk Orders!
         </div>
 
-        <header className="anim-top glass-card" style={{ position: 'sticky', top: 0, zIndex: 100, borderBottom: '1px solid rgba(226, 232, 240, 0.8)', padding: '14px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', boxSizing: 'border-box', boxShadow: '0 4px 20px -2px rgba(0,0,0,0.03)' }}>
+        {/* Main Header */}
+        <header className="glass-card" style={{ position: 'sticky', top: 0, zIndex: 100, borderBottom: '1px solid #e2e8f0', padding: '14px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', boxSizing: 'border-box', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }} onClick={() => { setSelectedCategory("All Categories"); setSearchQuery(""); }}>
-            <div style={{ width: '42px', height: '42px', backgroundColor: '#2563eb', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)' }}>
+            <div style={{ width: '42px', height: '42px', backgroundColor: '#1d4ed8', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(29, 78, 216, 0.3)' }}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2C12 2 5 9 5 14C5 17.866 8.13401 21 12 21C15.866 21 19 17.866 19 14C19 9 12 2 12 2Z" fill="white" />
-                <path d="M12 6V16" stroke="#2563eb" strokeWidth="1.5" strokeLinecap="round"/>
-                <circle cx="12" cy="14" r="1.5" fill="#2563eb"/>
+                <path d="M12 6V16" stroke="#1d4ed8" strokeWidth="1.5" strokeLinecap="round"/>
+                <circle cx="12" cy="14" r="1.5" fill="#1d4ed8"/>
               </svg>
             </div>
             <div>
-              <h1 style={{ color: '#0f172a', fontSize: '18px', fontWeight: '800', margin: 0, letterSpacing: '-0.3px' }}>Shivam Stationery Mart</h1>
-              <span style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '1px' }}>Enterprise & Retail Supplies</span>
+              <h1 style={{ color: '#0f172a', fontSize: '17px', fontWeight: '800', margin: 0, letterSpacing: '-0.3px' }}>Shivam Stationery Mart</h1>
+              <span style={{ fontSize: '10px', color: '#64748b', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px' }}>ENTERPRISE & RETAIL SUPPLIES</span>
             </div>
           </div>
 
-          <div style={{ width: '35%', position: 'relative' }}>
+          <div style={{ width: '36%', position: 'relative' }}>
             <input 
               type="text" 
               placeholder="Search items, pens, notebooks..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              style={{ width: '100%', border: '1px solid #cbd5e1', borderRadius: '9999px', padding: '10px 20px', fontSize: '14px', outline: 'none', backgroundColor: 'rgba(255,255,255,0.9)', boxSizing: 'border-box', boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)' }}
+              style={{ width: '100%', border: '1px solid #cbd5e1', borderRadius: '9999px', padding: '10px 20px 10px 20px', fontSize: '14px', outline: 'none', backgroundColor: '#ffffff', boxSizing: 'border-box', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.02)' }}
             />
-            {searchQuery && (
-              <span onClick={() => setSearchQuery("")} style={{ position: 'absolute', right: '15px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', color: '#94a3b8', fontWeight: 'bold' }}>✕</span>
-            )}
+            <div style={{ position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)', backgroundColor: '#1d4ed8', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '12px', cursor: 'pointer' }}>
+              🔍
+            </div>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '24px', fontSize: '14px' }}>
@@ -278,82 +255,195 @@ export default function App() {
                 </div>
               ) : (
                 <div>
-                  <p style={{ fontSize: '11px', color: '#64748b', margin: 0 }}>New Customer?</p>
-                  <p onClick={() => { setAuthMode("register"); setIsAuthOpen(true); }} style={{ fontWeight: 'bold', color: '#2563eb', margin: 0, cursor: 'pointer', display: 'inline-block' }}>Register</p>
-                  <span style={{ color: '#cbd5e1', margin: '0 4px' }}>|</span>
-                  <p onClick={() => { setAuthMode("signin"); setIsAuthOpen(true); }} style={{ fontWeight: 'bold', color: '#0f172a', margin: 0, cursor: 'pointer', display: 'inline-block' }}>Sign In</p>
+                  <p style={{ fontSize: '11px', color: '#64748b', margin: 0 }}>Hello, Guest!</p>
+                  <div>
+                    <span onClick={() => { setAuthMode("register"); setIsAuthOpen(true); }} style={{ fontWeight: '700', color: '#1d4ed8', cursor: 'pointer' }}>Register</span>
+                    <span style={{ color: '#cbd5e1', margin: '0 4px' }}>|</span>
+                    <span onClick={() => { setAuthMode("signin"); setIsAuthOpen(true); }} style={{ fontWeight: '700', color: '#0f172a', cursor: 'pointer' }}>Sign In</span>
+                  </div>
                 </div>
               )}
             </div>
             
-            <div onClick={() => setIsCartOpen(true)} style={{ display: 'flex', alignItems: 'center', backgroundColor: 'white', padding: '8px 18px', borderRadius: '9999px', cursor: 'pointer', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
-              <span style={{ fontWeight: '600', color: '#0f172a' }}>🛒 Cart</span>
-              <span style={{ marginLeft: '8px', backgroundColor: '#2563eb', color: 'white', fontSize: '11px', fontWeight: 'bold', padding: '2px 7px', borderRadius: '9999px' }}>{totalItemsCount}</span>
+            <div onClick={() => setIsCartOpen(true)} style={{ display: 'flex', alignItems: 'center', backgroundColor: '#1d4ed8', color: 'white', padding: '8px 18px', borderRadius: '9999px', cursor: 'pointer', boxShadow: '0 4px 12px rgba(29, 78, 216, 0.25)', fontWeight: '600', gap: '8px' }}>
+              <span>🛒 Cart</span>
+              <span style={{ backgroundColor: '#ffffff', color: '#1d4ed8', fontSize: '12px', fontWeight: '800', width: '20px', height: '20px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{totalItemsCount}</span>
             </div>
           </div>
         </header>
 
-        <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 24px', flex: 1, width: '100%', boxSizing: 'border-box' }}>
+        {/* Sub Navigation Bar */}
+        <div style={{ backgroundColor: '#1e3a8a', padding: '0 32px', display: 'flex', alignItems: 'center', gap: '28px', color: '#ffffff', fontSize: '14px', fontWeight: '500', height: '46px', boxShadow: '0 2px 6px rgba(0,0,0,0.1)' }}>
+          <div onClick={() => { setSelectedCategory("All Categories"); setSearchQuery(""); }} style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', backgroundColor: 'rgba(255,255,255,0.15)', padding: '6px 14px', borderRadius: '8px' }}>
+            <span>🏠</span> Home
+          </div>
+          <div onClick={() => setSelectedCategory("Household & Cleaning")} style={{ cursor: 'pointer', opacity: 0.9 }}>Categories ▾</div>
+          <div style={{ cursor: 'pointer', opacity: 0.9 }}>🏷️ Deals</div>
+          <div style={{ cursor: 'pointer', opacity: 0.9 }}>✨ New Arrivals</div>
+          <div style={{ cursor: 'pointer', opacity: 0.9 }}>📦 Bulk Orders ▾</div>
+          <div style={{ cursor: 'pointer', opacity: 0.9 }}>✉️ Contact Us</div>
+        </div>
+
+        <main style={{ maxWidth: '1240px', margin: '0 auto', padding: '32px 24px', flex: 1, width: '100%', boxSizing: 'border-box' }}>
           
-          <div className="anim-left" style={{ marginBottom: '40px' }}>
-            <h2 style={{ fontSize: '16px', fontWeight: '800', color: '#334155', marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.8px' }}>Explore Categories</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '16px' }}>
+          {/* Hero Banner Section */}
+          <div className="glass-card" style={{ borderRadius: '24px', padding: '40px', marginBottom: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240, 249, 255, 0.9) 100%)', boxShadow: '0 10px 30px -5px rgba(0,0,0,0.04)', position: 'relative', overflow: 'hidden' }}>
+            
+            <div style={{ maxWidth: '420px', zIndex: 2 }}>
+              <span style={{ backgroundColor: '#dbeafe', color: '#1d4ed8', padding: '6px 14px', borderRadius: '9999px', fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                Your One Stop Stationery Shop
+              </span>
+              <h1 style={{ fontSize: '36px', fontWeight: '900', color: '#0f172a', lineHeight: '1.15', margin: '14px 0 14px 0' }}>
+                Everything You Need, <span style={{ color: '#1d4ed8' }}>Delivered</span> with Care
+              </h1>
+              <p style={{ fontSize: '14px', color: '#475569', lineHeight: '1.6', margin: '0 0 20px 0' }}>
+                Premium quality products at unbeatable prices. Perfect for offices, schools, and your daily needs.
+              </p>
+              <div style={{ display: 'flex', gap: '14px' }}>
+                <button onClick={() => setSelectedCategory("All Categories")} style={{ backgroundColor: '#1d4ed8', color: 'white', border: 'none', padding: '12px 24px', borderRadius: '10px', fontSize: '14px', fontWeight: '700', cursor: 'pointer', boxShadow: '0 4px 14px rgba(29, 78, 216, 0.3)' }}>
+                  Shop Now →
+                </button>
+                <button onClick={() => setSelectedCategory("Household & Cleaning")} style={{ backgroundColor: '#ffffff', color: '#1e293b', border: '1px solid #cbd5e1', padding: '12px 24px', borderRadius: '10px', fontSize: '14px', fontWeight: '700', cursor: 'pointer' }}>
+                  View Deals 🏷️
+                </button>
+              </div>
+            </div>
+
+            {/* Custom Downloaded Image Display with clean path */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.8)', padding: '12px', borderRadius: '18px', border: '1px solid #e2e8f0', boxShadow: '0 8px 20px rgba(0,0,0,0.04)' }}>
+              <img 
+                src="/banner.png" 
+                alt="Stationery & Enterprise Essentials" 
+                style={{ width: '320px', height: '200px', objectFit: 'cover', borderRadius: '12px' }}
+              />
+            </div>
+
+            {/* Right Trust Badges Card */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', backgroundColor: 'white', padding: '20px', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 4px 12px rgba(0,0,0,0.03)', minWidth: '220px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <span style={{ fontSize: '20px' }}>🚚</span>
+                <div>
+                  <h4 style={{ fontSize: '13px', fontWeight: '700', color: '#0f172a', margin: 0 }}>Free Delivery</h4>
+                  <p style={{ fontSize: '11px', color: '#64748b', margin: 0 }}>On orders above ₹600</p>
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <span style={{ fontSize: '20px' }}>🛡️</span>
+                <div>
+                  <h4 style={{ fontSize: '13px', fontWeight: '700', color: '#0f172a', margin: 0 }}>Best Quality</h4>
+                  <p style={{ fontSize: '11px', color: '#64748b', margin: 0 }}>Premium & Trusted</p>
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <span style={{ fontSize: '20px' }}>🔄</span>
+                <div>
+                  <h4 style={{ fontSize: '13px', fontWeight: '700', color: '#0f172a', margin: 0 }}>Easy Returns</h4>
+                  <p style={{ fontSize: '11px', color: '#64748b', margin: 0 }}>Hassle free returns</p>
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <span style={{ fontSize: '20px' }}>🔒</span>
+                <div>
+                  <h4 style={{ fontSize: '13px', fontWeight: '700', color: '#0f172a', margin: 0 }}>Secure Payment</h4>
+                  <p style={{ fontSize: '11px', color: '#64748b', margin: 0 }}>100% safe & secure</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Explore Categories Section */}
+          <div style={{ marginBottom: '40px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
+              <h2 style={{ fontSize: '15px', fontWeight: '800', color: '#334155', margin: 0, textTransform: 'uppercase', letterSpacing: '0.8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ color: '#1d4ed8', fontSize: '18px' }}>•</span> EXPLORE CATEGORIES
+              </h2>
+              <span onClick={() => setSelectedCategory("All Categories")} style={{ color: '#1d4ed8', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>View All Categories →</span>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))', gap: '16px' }}>
               {categories.map((cat) => (
                 <div 
                   key={cat.id} 
                   onClick={() => { setSelectedCategory(cat.name); setSearchQuery(""); }}
                   className="card-hover glass-card"
                   style={{ 
-                    backgroundColor: selectedCategory === cat.name && !searchQuery ? 'rgba(239, 246, 255, 0.9)' : 'rgba(255, 255, 255, 0.8)', 
-                    border: selectedCategory === cat.name && !searchQuery ? '2px solid #2563eb' : '1px solid rgba(226, 232, 240, 0.8)', 
+                    backgroundColor: selectedCategory === cat.name && !searchQuery ? '#eff6ff' : '#ffffff', 
+                    border: selectedCategory === cat.name && !searchQuery ? '2px solid #1d4ed8' : '1px solid #e2e8f0', 
                     borderRadius: '14px', 
                     padding: '18px', 
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '14px',
-                    boxShadow: '0 4px 6px -1px rgba(0,0,0,0.01)'
+                    justifyContent: 'space-between',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.01)'
                   }}
                 >
-                  <span style={{ fontSize: '28px' }}>{cat.icon}</span>
-                  <div>
-                    <h3 style={{ fontSize: '14px', fontWeight: '700', color: '#0f172a', margin: '0 0 2px 0' }}>{cat.name}</h3>
-                    <p style={{ fontSize: '11px', color: '#64748b', margin: 0 }}>{cat.desc}</p>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <span style={{ fontSize: '26px' }}>{cat.icon}</span>
+                    <div>
+                      <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#0f172a', margin: '0 0 2px 0' }}>{cat.name}</h3>
+                      <p style={{ fontSize: '11px', color: '#64748b', margin: 0 }}>{cat.desc}</p>
+                    </div>
                   </div>
+                  <span style={{ color: '#94a3b8', fontSize: '14px' }}>→</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="anim-right">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-              <h2 style={{ fontSize: '18px', fontWeight: '800', color: '#334155', margin: 0, textTransform: 'uppercase', letterSpacing: '0.8px' }}>
-                {searchQuery ? `Search Results for "${searchQuery}"` : (selectedCategory === "All Categories" ? "Featured Products & Deals" : `${selectedCategory}`)}
+          {/* Featured Products & Deals Section */}
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h2 style={{ fontSize: '15px', fontWeight: '800', color: '#334155', margin: 0, textTransform: 'uppercase', letterSpacing: '0.8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ color: '#1d4ed8', fontSize: '18px' }}>•</span> FEATURED PRODUCTS & DEALS
               </h2>
-              {(selectedCategory !== "All Categories" || searchQuery) && (
-                <span onClick={() => { setSelectedCategory("All Categories"); setSearchQuery(""); }} style={{ color: '#2563eb', fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}>View All Products</span>
-              )}
+              <span onClick={() => { setSelectedCategory("All Categories"); setSearchQuery(""); }} style={{ color: '#1d4ed8', fontSize: '13px', fontWeight: '700', cursor: 'pointer' }}>View All Products →</span>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '24px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '20px' }}>
               {filteredProducts.length > 0 ? (
                 filteredProducts.map((product) => (
-                  <div key={product.id} className="card-hover glass-card" style={{ borderRadius: '14px', padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.02)' }}>
+                  <div key={product.id} className="card-hover glass-card" style={{ borderRadius: '16px', padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: '0 4px 6px rgba(0,0,0,0.02)', position: 'relative' }}>
+                    
+                    {/* Discount Badge */}
+                    {product.discount && (
+                      <span style={{ position: 'absolute', top: '16px', left: '16px', backgroundColor: '#1d4ed8', color: 'white', fontSize: '10px', fontWeight: '800', padding: '3px 8px', borderRadius: '6px', zIndex: 2 }}>
+                        {product.discount}
+                      </span>
+                    )}
+
+                    {/* Wishlist Heart Icon */}
+                    <span style={{ position: 'absolute', top: '16px', right: '16px', fontSize: '16px', cursor: 'pointer', background: '#f1f5f9', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      ♡
+                    </span>
+
                     <div>
-                      <div style={{ height: '140px', backgroundColor: '#f1f5f9', borderRadius: '10px', marginBottom: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b', fontSize: '13px', fontWeight: '500', border: '1px dashed #cbd5e1' }}>
+                      <div style={{ height: '130px', backgroundColor: '#f8fafc', borderRadius: '10px', marginBottom: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b', fontSize: '12px', fontWeight: '600', border: '1px dashed #cbd5e1' }}>
                         [ {product.category} ]
                       </div>
-                      <h3 style={{ fontSize: '14px', fontWeight: '600', color: '#1e293b', marginBottom: '8px', minHeight: '40px', lineHeight: '1.4' }}>{product.name}</h3>
-                      <p style={{ color: '#eab308', fontSize: '14px', margin: '0 0 8px 0', letterSpacing: '2px' }}>{product.rating}</p>
-                      <p style={{ fontSize: '18px', fontWeight: '800', color: '#0f172a', margin: '0 0 16px 0' }}>{product.priceText}</p>
+                      <h3 style={{ fontSize: '13px', fontWeight: '600', color: '#1e293b', marginBottom: '8px', minHeight: '38px', lineHeight: '1.4' }}>{product.name}</h3>
+                      
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
+                        <span style={{ color: '#eab308', fontSize: '13px' }}>{product.rating}</span>
+                        <span style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '600' }}>{product.reviews}</span>
+                      </div>
+
+                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '16px' }}>
+                        <span style={{ fontSize: '17px', fontWeight: '800', color: '#0f172a' }}>{product.priceText}</span>
+                        {product.originalPrice && (
+                          <span style={{ fontSize: '12px', color: '#94a3b8', textDecoration: 'line-through' }}>{product.originalPrice}</span>
+                        )}
+                      </div>
                     </div>
-                    <button onClick={() => addToCart(product)} style={{ width: '100%', backgroundColor: '#2563eb', color: 'white', border: 'none', padding: '10px', borderRadius: '10px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', boxShadow: '0 4px 12px rgba(37, 99, 235, 0.2)' }}>
-                      Add to Cart
+
+                    <button onClick={() => addToCart(product)} style={{ width: '100%', backgroundColor: '#1d4ed8', color: 'white', border: 'none', padding: '10px', borderRadius: '10px', fontSize: '13px', fontWeight: '700', cursor: 'pointer', boxShadow: '0 4px 10px rgba(29, 78, 216, 0.2)' }}>
+                      🛒 Add to Cart
                     </button>
                   </div>
                 ))
               ) : (
-                <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '50px', background: 'rgba(255,255,255,0.6)', borderRadius: '14px', border: '1px solid #e2e8f0' }}>
+                <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '50px', background: '#ffffff', borderRadius: '14px', border: '1px solid #e2e8f0' }}>
                   <p style={{ fontSize: '28px', margin: '0 0 10px 0' }}>🔍</p>
                   <p style={{ color: '#64748b', fontSize: '15px', fontWeight: '600', margin: 0 }}>No products found matching "{searchQuery}"</p>
                 </div>
@@ -362,8 +452,9 @@ export default function App() {
           </div>
         </main>
 
-        <footer className="anim-bottom" style={{ backgroundColor: '#0f172a', color: '#cbd5e1', padding: '50px 32px 24px 32px', marginTop: '60px', borderTop: '1px solid #1e293b' }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '40px', marginBottom: '30px' }}>
+        {/* Footer */}
+        <footer style={{ backgroundColor: '#0f172a', color: '#cbd5e1', padding: '50px 32px 24px 32px', marginTop: '60px', borderTop: '1px solid #1e293b' }}>
+          <div style={{ maxWidth: '1240px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '40px', marginBottom: '30px' }}>
             <div>
               <h3 style={{ color: 'white', fontSize: '16px', fontWeight: '700', marginBottom: '12px' }}>Shivam Stationery Mart</h3>
               <p style={{ fontSize: '13px', lineHeight: '1.6', color: '#94a3b8', margin: 0 }}>
@@ -389,13 +480,14 @@ export default function App() {
               </div>
             </div>
           </div>
-          <div style={{ maxWidth: '1200px', margin: '0 auto', borderTop: '1px solid #1e293b', paddingTop: '20px', textAlign: 'center', fontSize: '12px', color: '#64748b' }}>
+          <div style={{ maxWidth: '1240px', margin: '0 auto', borderTop: '1px solid #1e293b', paddingTop: '20px', textAlign: 'center', fontSize: '12px', color: '#64748b' }}>
             © 2026 Shivam Stationery Mart. All Rights Reserved. Professional React App.
           </div>
         </footer>
 
       </div>
 
+      {/* Cart Modal */}
       {isCartOpen && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
           <div className="anim-top glass-card" style={{ backgroundColor: 'white', borderRadius: '16px', padding: '24px', width: '100%', maxWidth: '480px', maxHeight: '85vh', display: 'flex', flexDirection: 'column', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', position: 'relative', boxSizing: 'border-box' }}>
@@ -456,6 +548,7 @@ export default function App() {
         </div>
       )}
 
+      {/* Checkout Modal */}
       {isCheckoutOpen && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
           <div className="anim-top glass-card" style={{ backgroundColor: 'white', borderRadius: '16px', padding: '28px', width: '100%', maxWidth: '480px', maxHeight: '90vh', overflowY: 'auto', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', position: 'relative', boxSizing: 'border-box' }}>
@@ -480,7 +573,7 @@ export default function App() {
                 <textarea placeholder="House No, Street, Landmark, City, Pincode" value={shippingAddress} onChange={(e) => setShippingAddress(e.target.value)} rows="3" style={{ width: '100%', padding: '10px 14px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px', outline: 'none', boxSizing: 'border-box', resize: 'vertical', backgroundColor: 'white' }} />
               </div>
 
-              <button type="submit" style={{ backgroundColor: '#2563eb', color: 'white', border: 'none', padding: '12px', borderRadius: '10px', fontSize: '15px', fontWeight: '700', cursor: 'pointer', marginTop: '10px', boxShadow: '0 4px 12px rgba(37, 99, 235, 0.2)' }}>
+              <button type="submit" style={{ backgroundColor: '#1d4ed8', color: 'white', border: 'none', padding: '12px', borderRadius: '10px', fontSize: '15px', fontWeight: '700', cursor: 'pointer', marginTop: '10px', boxShadow: '0 4px 12px rgba(29, 78, 216, 0.2)' }}>
                 Proceed to Secure Payment (₹{grandTotal})
               </button>
             </form>
@@ -488,6 +581,7 @@ export default function App() {
         </div>
       )}
 
+      {/* Payment Gateway Modal */}
       {isPaymentOpen && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1100 }}>
           <div className="anim-top" style={{ backgroundColor: 'white', borderRadius: '20px', width: '100%', maxWidth: '460px', overflow: 'hidden', boxShadow: '0 25px 60px -15px rgba(0,0,0,0.3)', position: 'relative', boxSizing: 'border-box' }}>
@@ -505,7 +599,7 @@ export default function App() {
 
             {isProcessing ? (
               <div style={{ padding: '50px 24px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ width: '50px', height: '50px', border: '4px solid #e2e8f0', borderTop: '4px solid #2563eb', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '20px' }}></div>
+                <div style={{ width: '50px', height: '50px', border: '4px solid #e2e8f0', borderTop: '4px solid #1d4ed8', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '20px' }}></div>
                 <h4 style={{ fontSize: '18px', fontWeight: '700', color: '#0f172a', margin: '0 0 8px 0' }}>Processing Payment...</h4>
                 <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>Please do not refresh or close this window while we securely connect to your bank.</p>
               </div>
@@ -515,21 +609,21 @@ export default function App() {
                   <button 
                     type="button" 
                     onClick={() => setPaymentMethod('upi')}
-                    style={{ padding: '12px 8px', borderRadius: '10px', border: paymentMethod === 'upi' ? '2px solid #2563eb' : '1px solid #cbd5e1', backgroundColor: paymentMethod === 'upi' ? '#eff6ff' : 'white', cursor: 'pointer', fontWeight: '600', fontSize: '13px', color: '#1e293b' }}
+                    style={{ padding: '12px 8px', borderRadius: '10px', border: paymentMethod === 'upi' ? '2px solid #1d4ed8' : '1px solid #cbd5e1', backgroundColor: paymentMethod === 'upi' ? '#eff6ff' : 'white', cursor: 'pointer', fontWeight: '600', fontSize: '13px', color: '#1e293b' }}
                   >
                     📱 UPI / QR
                   </button>
                   <button 
                     type="button" 
                     onClick={() => setPaymentMethod('card')}
-                    style={{ padding: '12px 8px', borderRadius: '10px', border: paymentMethod === 'card' ? '2px solid #2563eb' : '1px solid #cbd5e1', backgroundColor: paymentMethod === 'card' ? '#eff6ff' : 'white', cursor: 'pointer', fontWeight: '600', fontSize: '13px', color: '#1e293b' }}
+                    style={{ padding: '12px 8px', borderRadius: '10px', border: paymentMethod === 'card' ? '2px solid #1d4ed8' : '1px solid #cbd5e1', backgroundColor: paymentMethod === 'card' ? '#eff6ff' : 'white', cursor: 'pointer', fontWeight: '600', fontSize: '13px', color: '#1e293b' }}
                   >
                     💳 Card
                   </button>
                   <button 
                     type="button" 
                     onClick={() => setPaymentMethod('netbanking')}
-                    style={{ padding: '12px 8px', borderRadius: '10px', border: paymentMethod === 'netbanking' ? '2px solid #2563eb' : '1px solid #cbd5e1', backgroundColor: paymentMethod === 'netbanking' ? '#eff6ff' : 'white', cursor: 'pointer', fontWeight: '600', fontSize: '13px', color: '#1e293b' }}
+                    style={{ padding: '12px 8px', borderRadius: '10px', border: paymentMethod === 'netbanking' ? '2px solid #1d4ed8' : '1px solid #cbd5e1', backgroundColor: paymentMethod === 'netbanking' ? '#eff6ff' : 'white', cursor: 'pointer', fontWeight: '600', fontSize: '13px', color: '#1e293b' }}
                   >
                     🏦 NetBanking
                   </button>
@@ -540,10 +634,6 @@ export default function App() {
                     <div>
                       <label style={{ fontSize: '12px', fontWeight: '600', color: '#334155', display: 'block', marginBottom: '6px' }}>Enter UPI ID / VPA</label>
                       <input type="text" placeholder="username@oksbi / username@paytm" value={upiId} onChange={(e) => setUpiId(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px', outline: 'none', boxSizing: 'border-box' }} />
-                      <div style={{ marginTop: '12px', textAlign: 'center', backgroundColor: '#f8fafc', padding: '12px', borderRadius: '8px', border: '1px dashed #cbd5e1' }}>
-                        <p style={{ fontSize: '12px', color: '#64748b', margin: '0 0 6px 0' }}>Or Scan QR with any UPI App</p>
-                        <div style={{ fontSize: '32px' }}>📷 [ QR CODE SIMULATION ]</div>
-                      </div>
                     </div>
                   )}
 
@@ -589,6 +679,7 @@ export default function App() {
         </div>
       )}
 
+      {/* Success Order Modal */}
       {successOrder && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1200 }}>
           <div className="anim-top" style={{ backgroundColor: 'white', borderRadius: '20px', padding: '32px', width: '100%', maxWidth: '480px', maxHeight: '90vh', overflowY: 'auto', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.3)', position: 'relative', boxSizing: 'border-box' }}>
@@ -618,27 +709,14 @@ export default function App() {
               </div>
             </div>
 
-            <div style={{ marginBottom: '20px' }}>
-              <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#0f172a', marginBottom: '10px' }}>Ordered Items:</h4>
-              {successOrder.items.map((item, idx) => (
-                <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#475569', marginBottom: '6px', borderBottom: '1px dashed #f1f5f9', paddingBottom: '6px' }}>
-                  <span>{item.name} × {item.quantity}</span>
-                  <span style={{ fontWeight: '600' }}>₹{item.priceVal * item.quantity}</span>
-                </div>
-              ))}
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '15px', fontWeight: '800', color: '#0f172a', marginTop: '10px', borderTop: '1px solid #cbd5e1', paddingTop: '8px' }}>
-                <span>Total Paid:</span>
-                <span style={{ color: '#16a34a' }}>₹{successOrder.total}</span>
-              </div>
-            </div>
-
-            <button onClick={() => setSuccessOrder(null)} style={{ backgroundColor: '#2563eb', color: 'white', border: 'none', padding: '12px', borderRadius: '10px', fontSize: '15px', fontWeight: '700', cursor: 'pointer', width: '100%', boxShadow: '0 4px 12px rgba(37, 99, 235, 0.2)' }}>
+            <button onClick={() => setSuccessOrder(null)} style={{ backgroundColor: '#1d4ed8', color: 'white', border: 'none', padding: '12px', borderRadius: '10px', fontSize: '15px', fontWeight: '700', cursor: 'pointer', width: '100%', boxShadow: '0 4px 12px rgba(29, 78, 216, 0.2)' }}>
               Back to Store
             </button>
           </div>
         </div>
       )}
 
+      {/* Auth Modal */}
       {isAuthOpen && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
           <div className="anim-top glass-card" style={{ backgroundColor: 'white', borderRadius: '16px', padding: '32px', width: '100%', maxWidth: '400px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', position: 'relative', boxSizing: 'border-box' }}>
@@ -666,16 +744,16 @@ export default function App() {
                 <label style={{ fontSize: '12px', fontWeight: '600', color: '#334155', display: 'block', marginBottom: '6px' }}>Password</label>
                 <input type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px', outline: 'none', boxSizing: 'border-box', backgroundColor: 'white' }} />
               </div>
-              <button type="submit" style={{ backgroundColor: '#2563eb', color: 'white', border: 'none', padding: '12px', borderRadius: '10px', fontSize: '15px', fontWeight: '700', cursor: 'pointer', marginTop: '8px', boxShadow: '0 4px 12px rgba(37, 99, 235, 0.2)' }}>
+              <button type="submit" style={{ backgroundColor: '#1d4ed8', color: 'white', border: 'none', padding: '12px', borderRadius: '10px', fontSize: '15px', fontWeight: '700', cursor: 'pointer', marginTop: '8px', boxShadow: '0 4px 12px rgba(29, 78, 216, 0.2)' }}>
                 {authMode === "signin" ? "Sign In" : "Register Now"}
               </button>
             </form>
 
             <div style={{ textAlign: 'center', fontSize: '13px', color: '#64748b', marginTop: '20px' }}>
               {authMode === "signin" ? (
-                <p>Don't have an account? <span onClick={() => setAuthMode("register")} style={{ color: '#2563eb', fontWeight: '700', cursor: 'pointer' }}>Register</span></p>
+                <p>Don't have an account? <span onClick={() => setAuthMode("register")} style={{ color: '#1d4ed8', fontWeight: '700', cursor: 'pointer' }}>Register</span></p>
               ) : (
-                <p>Already have an account? <span onClick={() => setAuthMode("signin")} style={{ color: '#2563eb', fontWeight: '700', cursor: 'pointer' }}>Sign In</span></p>
+                <p>Already have an account? <span onClick={() => setAuthMode("signin")} style={{ color: '#1d4ed8', fontWeight: '700', cursor: 'pointer' }}>Sign In</span></p>
               )}
             </div>
           </div>

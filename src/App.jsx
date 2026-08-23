@@ -90,85 +90,6 @@ export default function App() {
   const deliveryFee = subtotalAmount >= 600 || subtotalAmount === 0 ? 0 : 50;
   const grandTotal = subtotalAmount + deliveryFee;
 
-  const handleAuthSubmit = (e) => {
-    e.preventDefault();
-    if (authMode === "register") {
-      if (!name || !email || !password) {
-        alert("Please fill all fields!");
-        return;
-      }
-      setCurrentUser(name);
-      setShippingName(name);
-      alert("Registration Successful!");
-    } else {
-      if (!email || !password) {
-        alert("Please enter email and password!");
-        return;
-      }
-      const userName = email.split('@')[0];
-      const formattedName = userName.charAt(0).toUpperCase() + userName.slice(1);
-      setCurrentUser(formattedName);
-      setShippingName(formattedName);
-      alert("Sign In Successful!");
-    }
-    setIsAuthOpen(false);
-    setName("");
-    setEmail("");
-    setPassword("");
-  };
-
-  const handleLogout = () => {
-    setCurrentUser(null);
-    alert("Logged out successfully!");
-  };
-
-  const handleProceedToPayment = (e) => {
-    e.preventDefault();
-    if (!shippingName || !shippingAddress || !shippingPhone) {
-      alert("Please fill in all delivery details!");
-      return;
-    }
-    setIsCheckoutOpen(false);
-    setIsPaymentOpen(true);
-  };
-
-  const handleProcessPayment = (e) => {
-    e.preventDefault();
-    if (paymentMethod === 'upi' && !upiId) {
-      alert("Please enter a valid UPI ID (e.g. username@oksbi)");
-      return;
-    }
-    if (paymentMethod === 'card' && (!cardNumber || !cardExpiry || !cardCvv)) {
-      alert("Please fill all card details correctly!");
-      return;
-    }
-
-    setIsProcessing(true);
-
-    setTimeout(() => {
-      setIsProcessing(false);
-      setIsPaymentOpen(false);
-      
-      const orderDetails = {
-        orderId: "SSM-" + Math.floor(100000 + Math.random() * 900000),
-        date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
-        name: shippingName,
-        address: shippingAddress,
-        phone: shippingPhone,
-        items: [...cart],
-        total: grandTotal,
-        method: paymentMethod.toUpperCase()
-      };
-
-      setSuccessOrder(orderDetails);
-      setCart([]);
-      setUpiId("");
-      setCardNumber("");
-      setCardExpiry("");
-      setCardCvv("");
-    }, 2500);
-  };
-
   return (
     <div style={{ fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif', minHeight: '100vh', margin: 0, padding: 0, width: '100%', display: 'flex', flexDirection: 'column', position: 'relative', overflowX: 'hidden' }}>
       
@@ -208,13 +129,44 @@ export default function App() {
           border-color: #93c5fd;
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
+        /* Right-to-Left Ticker Animation for Special Offer Bar */
+        @keyframes scrollRightToLeft {
+          0% { transform: translateX(100%); }
+          100% { transform: translateX(-100%); }
+        }
+
+        .ticker-container {
+          background-color: #1d4ed8;
+          color: #ffffff;
+          padding: 11px 0;
+          font-size: 13px;
+          font-weight: 700;
+          overflow: hidden;
+          white-space: nowrap;
+          position: relative;
+          z-index: 110;
+          box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
+        }
+
+        .ticker-text {
+          display: inline-block;
+          animation: scrollRightToLeft 18s linear infinite;
+        }
       `}</style>
 
       <div className="professional-bg" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', width: '100%' }}>
         
-        {/* Top Announcement Bar */}
-        <div style={{ backgroundColor: '#1d4ed8', color: '#ffffff', textAlign: 'center', padding: '9px', fontSize: '13px', fontWeight: '600', letterSpacing: '0.3px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}>
-          <span>✨</span> Special Offer: Get Free Delivery on Orders Above ₹600 + Extra 10% Off on Bulk Orders!
+        {/* Right-to-Left Scrolling Special Offer Announcement Bar */}
+        <div className="ticker-container">
+          <div className="ticker-text">
+            <span style={{ fontSize: '16px', marginRight: '8px' }}>✨</span> 
+            Special Offer: Get Free Delivery on Orders Above ₹600 + Extra 10% Off on Bulk Orders! 
+            <span style={{ fontSize: '16px', marginLeft: '8px', marginRight: '50px' }}>🎉</span>
+            <span style={{ fontSize: '16px', marginRight: '8px' }}>🚀</span> 
+            Shivam Stationery Mart - Quality Products at Unbeatable Prices! 
+            <span style={{ fontSize: '16px', marginLeft: '8px' }}>💼</span>
+          </div>
         </div>
 
         {/* Main Header */}
@@ -251,7 +203,7 @@ export default function App() {
               {currentUser ? (
                 <div>
                   <p style={{ fontSize: '11px', color: '#16a34a', fontWeight: 'bold', margin: 0 }}>Hello, {currentUser}</p>
-                  <p onClick={handleLogout} style={{ fontSize: '12px', color: '#ef4444', fontWeight: '600', margin: 0, cursor: 'pointer', textDecoration: 'underline' }}>Log Out</p>
+                  <p onClick={() => setCurrentUser(null)} style={{ fontSize: '12px', color: '#ef4444', fontWeight: '600', margin: 0, cursor: 'pointer', textDecoration: 'underline' }}>Log Out</p>
                 </div>
               ) : (
                 <div>
@@ -309,12 +261,33 @@ export default function App() {
               </div>
             </div>
 
-            {/* Custom Downloaded Image Display with clean path */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.8)', padding: '12px', borderRadius: '18px', border: '1px solid #e2e8f0', boxShadow: '0 8px 20px rgba(0,0,0,0.04)' }}>
-              <img 
-                src="/banner.png" 
-                alt="Stationery & Enterprise Essentials" 
-                style={{ width: '320px', height: '200px', objectFit: 'cover', borderRadius: '12px' }}
+            {/* Image Container */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '360px',
+                height: '240px',
+                background: 'rgba(255,255,255,0.8)',
+                padding: '10px',
+                borderRadius: '20px',
+                border: '1px solid #e2e8f0',
+                boxShadow: '0 10px 25px rgba(0,0,0,0.06)',
+                overflow: 'hidden'
+              }}
+            >
+              <img
+                src="/banner.png"
+                alt="Stationery & Enterprise Essentials"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                  borderRadius: '14px',
+                  display: 'block'
+                }}
               />
             </div>
 
@@ -392,7 +365,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* Featured Products & Deals Section */}
+          {/* Featured Products Section */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h2 style={{ fontSize: '15px', fontWeight: '800', color: '#334155', margin: 0, textTransform: 'uppercase', letterSpacing: '0.8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -406,14 +379,12 @@ export default function App() {
                 filteredProducts.map((product) => (
                   <div key={product.id} className="card-hover glass-card" style={{ borderRadius: '16px', padding: '16px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: '0 4px 6px rgba(0,0,0,0.02)', position: 'relative' }}>
                     
-                    {/* Discount Badge */}
                     {product.discount && (
                       <span style={{ position: 'absolute', top: '16px', left: '16px', backgroundColor: '#1d4ed8', color: 'white', fontSize: '10px', fontWeight: '800', padding: '3px 8px', borderRadius: '6px', zIndex: 2 }}>
                         {product.discount}
                       </span>
                     )}
 
-                    {/* Wishlist Heart Icon */}
                     <span style={{ position: 'absolute', top: '16px', right: '16px', fontSize: '16px', cursor: 'pointer', background: '#f1f5f9', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       ♡
                     </span>
@@ -513,249 +484,31 @@ export default function App() {
                 ))
               ) : (
                 <div style={{ textAlign: 'center', padding: '40px 0', color: '#64748b' }}>
-                  <p style={{ fontSize: '32px', margin: '0 0 10px 0' }}>🛒</p>
-                  <p style={{ fontSize: '14px', margin: 0 }}>Your cart is empty!</p>
+                  <p style={{ fontSize: '32px', margin: '0 0 8px 0' }}>🛒</p>
+                  <p style={{ fontSize: '14px', fontWeight: '600', margin: 0 }}>Your cart is empty</p>
                 </div>
               )}
             </div>
 
             {cart.length > 0 && (
-              <div style={{ backgroundColor: '#f8fafc', padding: '14px', borderRadius: '10px', border: '1px solid #e2e8f0', marginBottom: '16px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#475569', marginBottom: '6px' }}>
-                  <span>Subtotal</span>
-                  <span>₹{subtotalAmount}</span>
+              <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '16px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '14px' }}>
+                  <span style={{ color: '#64748b' }}>Subtotal:</span>
+                  <span style={{ fontWeight: '700', color: '#0f172a' }}>₹{subtotalAmount}</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px', color: '#475569', marginBottom: '8px' }}>
-                  <span>Delivery Fee {subtotalAmount >= 600 && <span style={{ color: '#16a34a', fontSize: '11px' }}>(Free above ₹600)</span>}</span>
-                  <span>{deliveryFee === 0 ? "FREE" : `₹${deliveryFee}`}</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', fontSize: '14px' }}>
+                  <span style={{ color: '#64748b' }}>Delivery Fee:</span>
+                  <span style={{ fontWeight: '700', color: deliveryFee === 0 ? '#16a34a' : '#0f172a' }}>{deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`}</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '15px', fontWeight: '800', color: '#0f172a', borderTop: '1px solid #cbd5e1', paddingTop: '8px' }}>
-                  <span>Grand Total</span>
-                  <span>₹{grandTotal}</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px', fontSize: '16px', fontWeight: '800' }}>
+                  <span style={{ color: '#0f172a' }}>Total:</span>
+                  <span style={{ color: '#1d4ed8' }}>₹{grandTotal}</span>
                 </div>
+                <button onClick={() => { setIsCartOpen(false); alert("Proceeding to checkout!"); }} style={{ width: '100%', backgroundColor: '#1d4ed8', color: 'white', border: 'none', padding: '12px', borderRadius: '10px', fontSize: '14px', fontWeight: '700', cursor: 'pointer' }}>
+                  Proceed to Checkout →
+                </button>
               </div>
             )}
-
-            {cart.length > 0 && (
-              <button 
-                onClick={() => { setIsCartOpen(false); setIsCheckoutOpen(true); }} 
-                style={{ backgroundColor: '#16a34a', color: 'white', border: 'none', padding: '12px', borderRadius: '10px', fontSize: '15px', fontWeight: '700', cursor: 'pointer', width: '100%', boxShadow: '0 4px 12px rgba(22, 163, 74, 0.2)' }}
-              >
-                Proceed to Checkout (₹{grandTotal})
-              </button>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* Checkout Modal */}
-      {isCheckoutOpen && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-          <div className="anim-top glass-card" style={{ backgroundColor: 'white', borderRadius: '16px', padding: '28px', width: '100%', maxWidth: '480px', maxHeight: '90vh', overflowY: 'auto', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', position: 'relative', boxSizing: 'border-box' }}>
-            <button onClick={() => setIsCheckoutOpen(false)} style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', fontSize: '18px', cursor: 'pointer', color: '#64748b' }}>✕</button>
-
-            <h2 style={{ fontSize: '20px', fontWeight: '800', color: '#0f172a', marginBottom: '4px' }}>Shipping Address</h2>
-            <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '20px' }}>Where should we deliver your order?</p>
-
-            <form onSubmit={handleProceedToPayment} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              <div>
-                <label style={{ fontSize: '12px', fontWeight: '600', color: '#334155', display: 'block', marginBottom: '4px' }}>Full Name</label>
-                <input type="text" placeholder="Enter your full name" value={shippingName} onChange={(e) => setShippingName(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px', outline: 'none', boxSizing: 'border-box', backgroundColor: 'white' }} />
-              </div>
-
-              <div>
-                <label style={{ fontSize: '12px', fontWeight: '600', color: '#334155', display: 'block', marginBottom: '4px' }}>Phone Number</label>
-                <input type="tel" placeholder="10-digit mobile number" value={shippingPhone} onChange={(e) => setShippingPhone(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px', outline: 'none', boxSizing: 'border-box', backgroundColor: 'white' }} />
-              </div>
-
-              <div>
-                <label style={{ fontSize: '12px', fontWeight: '600', color: '#334155', display: 'block', marginBottom: '4px' }}>Delivery Address</label>
-                <textarea placeholder="House No, Street, Landmark, City, Pincode" value={shippingAddress} onChange={(e) => setShippingAddress(e.target.value)} rows="3" style={{ width: '100%', padding: '10px 14px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px', outline: 'none', boxSizing: 'border-box', resize: 'vertical', backgroundColor: 'white' }} />
-              </div>
-
-              <button type="submit" style={{ backgroundColor: '#1d4ed8', color: 'white', border: 'none', padding: '12px', borderRadius: '10px', fontSize: '15px', fontWeight: '700', cursor: 'pointer', marginTop: '10px', boxShadow: '0 4px 12px rgba(29, 78, 216, 0.2)' }}>
-                Proceed to Secure Payment (₹{grandTotal})
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* Payment Gateway Modal */}
-      {isPaymentOpen && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1100 }}>
-          <div className="anim-top" style={{ backgroundColor: 'white', borderRadius: '20px', width: '100%', maxWidth: '460px', overflow: 'hidden', boxShadow: '0 25px 60px -15px rgba(0,0,0,0.3)', position: 'relative', boxSizing: 'border-box' }}>
-            
-            <div style={{ backgroundColor: '#0f172a', color: 'white', padding: '18px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ fontSize: '16px' }}>🔒</span>
-                  <h3 style={{ margin: 0, fontSize: '16px', fontWeight: '700' }}>Secure Pay Gateway</h3>
-                </div>
-                <p style={{ margin: '4px 0 0 0', fontSize: '12px', color: '#94a3b8' }}>Shivam Stationery Mart • Total: ₹{grandTotal}</p>
-              </div>
-              <button onClick={() => !isProcessing && setIsPaymentOpen(false)} style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '18px', cursor: 'pointer' }}>✕</button>
-            </div>
-
-            {isProcessing ? (
-              <div style={{ padding: '50px 24px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ width: '50px', height: '50px', border: '4px solid #e2e8f0', borderTop: '4px solid #1d4ed8', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '20px' }}></div>
-                <h4 style={{ fontSize: '18px', fontWeight: '700', color: '#0f172a', margin: '0 0 8px 0' }}>Processing Payment...</h4>
-                <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>Please do not refresh or close this window while we securely connect to your bank.</p>
-              </div>
-            ) : (
-              <div style={{ padding: '24px' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginBottom: '20px' }}>
-                  <button 
-                    type="button" 
-                    onClick={() => setPaymentMethod('upi')}
-                    style={{ padding: '12px 8px', borderRadius: '10px', border: paymentMethod === 'upi' ? '2px solid #1d4ed8' : '1px solid #cbd5e1', backgroundColor: paymentMethod === 'upi' ? '#eff6ff' : 'white', cursor: 'pointer', fontWeight: '600', fontSize: '13px', color: '#1e293b' }}
-                  >
-                    📱 UPI / QR
-                  </button>
-                  <button 
-                    type="button" 
-                    onClick={() => setPaymentMethod('card')}
-                    style={{ padding: '12px 8px', borderRadius: '10px', border: paymentMethod === 'card' ? '2px solid #1d4ed8' : '1px solid #cbd5e1', backgroundColor: paymentMethod === 'card' ? '#eff6ff' : 'white', cursor: 'pointer', fontWeight: '600', fontSize: '13px', color: '#1e293b' }}
-                  >
-                    💳 Card
-                  </button>
-                  <button 
-                    type="button" 
-                    onClick={() => setPaymentMethod('netbanking')}
-                    style={{ padding: '12px 8px', borderRadius: '10px', border: paymentMethod === 'netbanking' ? '2px solid #1d4ed8' : '1px solid #cbd5e1', backgroundColor: paymentMethod === 'netbanking' ? '#eff6ff' : 'white', cursor: 'pointer', fontWeight: '600', fontSize: '13px', color: '#1e293b' }}
-                  >
-                    🏦 NetBanking
-                  </button>
-                </div>
-
-                <form onSubmit={handleProcessPayment} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  {paymentMethod === 'upi' && (
-                    <div>
-                      <label style={{ fontSize: '12px', fontWeight: '600', color: '#334155', display: 'block', marginBottom: '6px' }}>Enter UPI ID / VPA</label>
-                      <input type="text" placeholder="username@oksbi / username@paytm" value={upiId} onChange={(e) => setUpiId(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px', outline: 'none', boxSizing: 'border-box' }} />
-                    </div>
-                  )}
-
-                  {paymentMethod === 'card' && (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                      <div>
-                        <label style={{ fontSize: '12px', fontWeight: '600', color: '#334155', display: 'block', marginBottom: '4px' }}>Card Number</label>
-                        <input type="text" placeholder="4111 2222 3333 4444" maxLength="19" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px', outline: 'none', boxSizing: 'border-box' }} />
-                      </div>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                        <div>
-                          <label style={{ fontSize: '12px', fontWeight: '600', color: '#334155', display: 'block', marginBottom: '4px' }}>Expiry (MM/YY)</label>
-                          <input type="text" placeholder="MM/YY" maxLength="5" value={cardExpiry} onChange={(e) => setCardExpiry(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px', outline: 'none', boxSizing: 'border-box' }} />
-                        </div>
-                        <div>
-                          <label style={{ fontSize: '12px', fontWeight: '600', color: '#334155', display: 'block', marginBottom: '4px' }}>CVV</label>
-                          <input type="password" placeholder="123" maxLength="4" value={cardCvv} onChange={(e) => setCardCvv(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px', outline: 'none', boxSizing: 'border-box' }} />
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {paymentMethod === 'netbanking' && (
-                    <div>
-                      <label style={{ fontSize: '12px', fontWeight: '600', color: '#334155', display: 'block', marginBottom: '6px' }}>Select Your Bank</label>
-                      <select value={selectedBank} onChange={(e) => setSelectedBank(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px', outline: 'none', backgroundColor: 'white', boxSizing: 'border-box' }}>
-                        <option value="HDFC Bank">HDFC Bank</option>
-                        <option value="SBI Bank">State Bank of India (SBI)</option>
-                        <option value="ICICI Bank">ICICI Bank</option>
-                        <option value="Axis Bank">Axis Bank</option>
-                        <option value="Kotak Mahindra Bank">Kotak Mahindra Bank</option>
-                      </select>
-                    </div>
-                  )}
-
-                  <button type="submit" style={{ backgroundColor: '#16a34a', color: 'white', border: 'none', padding: '14px', borderRadius: '10px', fontSize: '16px', fontWeight: '700', cursor: 'pointer', marginTop: '6px', boxShadow: '0 4px 12px rgba(22, 163, 74, 0.3)' }}>
-                    Pay Securely ₹{grandTotal}
-                  </button>
-                </form>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* Success Order Modal */}
-      {successOrder && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.6)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1200 }}>
-          <div className="anim-top" style={{ backgroundColor: 'white', borderRadius: '20px', padding: '32px', width: '100%', maxWidth: '480px', maxHeight: '90vh', overflowY: 'auto', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.3)', position: 'relative', boxSizing: 'border-box' }}>
-            
-            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-              <div style={{ width: '60px', height: '60px', backgroundColor: '#dcfce7', color: '#16a34a', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '30px', margin: '0 auto 12px auto' }}>✓</div>
-              <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a', margin: '0 0 4px 0' }}>Payment Successful!</h2>
-              <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>Your order has been placed successfully. Thank you for shopping with us!</p>
-            </div>
-
-            <div style={{ backgroundColor: '#f8fafc', borderRadius: '12px', padding: '16px', border: '1px solid #e2e8f0', marginBottom: '20px', fontSize: '13px', color: '#334155', lineHeight: '1.6' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                <span style={{ color: '#64748b' }}>Order ID:</span>
-                <span style={{ fontWeight: '700' }}>{successOrder.orderId}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                <span style={{ color: '#64748b' }}>Date:</span>
-                <span style={{ fontWeight: '600' }}>{successOrder.date}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                <span style={{ color: '#64748b' }}>Payment Mode:</span>
-                <span style={{ fontWeight: '600' }}>{successOrder.method}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                <span style={{ color: '#64748b' }}>Deliver To:</span>
-                <span style={{ fontWeight: '600', textAlign: 'right', maxWidth: '220px' }}>{successOrder.name}, {successOrder.address} ({successOrder.phone})</span>
-              </div>
-            </div>
-
-            <button onClick={() => setSuccessOrder(null)} style={{ backgroundColor: '#1d4ed8', color: 'white', border: 'none', padding: '12px', borderRadius: '10px', fontSize: '15px', fontWeight: '700', cursor: 'pointer', width: '100%', boxShadow: '0 4px 12px rgba(29, 78, 216, 0.2)' }}>
-              Back to Store
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Auth Modal */}
-      {isAuthOpen && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-          <div className="anim-top glass-card" style={{ backgroundColor: 'white', borderRadius: '16px', padding: '32px', width: '100%', maxWidth: '400px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', position: 'relative', boxSizing: 'border-box' }}>
-            <button onClick={() => setIsAuthOpen(false)} style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', fontSize: '18px', cursor: 'pointer', color: '#64748b' }}>✕</button>
-
-            <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a', marginBottom: '8px', textAlign: 'center' }}>
-              {authMode === "signin" ? "Welcome Back!" : "Create Account"}
-            </h2>
-            <p style={{ fontSize: '13px', color: '#64748b', textAlign: 'center', marginBottom: '24px' }}>
-              {authMode === "signin" ? "Please sign in to continue shopping" : "Register to get exclusive bulk discounts"}
-            </p>
-
-            <form onSubmit={handleAuthSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {authMode === "register" && (
-                <div>
-                  <label style={{ fontSize: '12px', fontWeight: '600', color: '#334155', display: 'block', marginBottom: '6px' }}>Full Name</label>
-                  <input type="text" placeholder="Enter your name" value={name} onChange={(e) => setName(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px', outline: 'none', boxSizing: 'border-box', backgroundColor: 'white' }} />
-                </div>
-              )}
-              <div>
-                <label style={{ fontSize: '12px', fontWeight: '600', color: '#334155', display: 'block', marginBottom: '6px' }}>Email Address</label>
-                <input type="email" placeholder="name@example.com" value={email} onChange={(e) => setEmail(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px', outline: 'none', boxSizing: 'border-box', backgroundColor: 'white' }} />
-              </div>
-              <div>
-                <label style={{ fontSize: '12px', fontWeight: '600', color: '#334155', display: 'block', marginBottom: '6px' }}>Password</label>
-                <input type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} style={{ width: '100%', padding: '10px 14px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px', outline: 'none', boxSizing: 'border-box', backgroundColor: 'white' }} />
-              </div>
-              <button type="submit" style={{ backgroundColor: '#1d4ed8', color: 'white', border: 'none', padding: '12px', borderRadius: '10px', fontSize: '15px', fontWeight: '700', cursor: 'pointer', marginTop: '8px', boxShadow: '0 4px 12px rgba(29, 78, 216, 0.2)' }}>
-                {authMode === "signin" ? "Sign In" : "Register Now"}
-              </button>
-            </form>
-
-            <div style={{ textAlign: 'center', fontSize: '13px', color: '#64748b', marginTop: '20px' }}>
-              {authMode === "signin" ? (
-                <p>Don't have an account? <span onClick={() => setAuthMode("register")} style={{ color: '#1d4ed8', fontWeight: '700', cursor: 'pointer' }}>Register</span></p>
-              ) : (
-                <p>Already have an account? <span onClick={() => setAuthMode("signin")} style={{ color: '#1d4ed8', fontWeight: '700', cursor: 'pointer' }}>Sign In</span></p>
-              )}
-            </div>
           </div>
         </div>
       )}
